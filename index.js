@@ -31,7 +31,7 @@ app.use("/api/message",messageRoute);
 
 port=process.env.PORT || 5000
 app.listen(port,()=>{
-    console.log(`server is running on port to ${port} finally`)
+    console.log(`your server is running on port to ${port} finally`)
 })
 
 
