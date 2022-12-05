@@ -279,7 +279,7 @@ const loginUser = async (req, res) => {
 
         // matching user type
         if (user.type !== type) {
-            return res.status(400).json({msg:"Please Provide Your Correct Type"})
+            return res.status(400).json({msg:"Please Provide Your Correct Type which you registerd"})
         }
 
         // comaparing password
