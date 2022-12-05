@@ -17,6 +17,7 @@ const postProperty = async (req, res,next) => {
 
         let pictureFiles = []
         pictureFiles = req.files;
+        
         //Check if files exist
         if (!pictureFiles)
             return res.status(400).json({ message: "No picture attached!" });
@@ -38,7 +39,10 @@ const postProperty = async (req, res,next) => {
   
         // await all the cloudinary upload functions in promise.all, exactly where the magic happens
         let imageResponses = await Promise.all(multiplePicturePromise);
-
+           
+       if (!imageResponses){
+        return res.status(400).json({ message: "No picture attached!" });
+       }
         let cover = imageResponses[0].secure_url;
         let propertyUpload = []
         propertyUpload[0] = imageResponses[1].secure_url
@@ -110,6 +114,9 @@ const postProperty = async (req, res,next) => {
         // res.status(201).json(property)
 
     } catch (err) {
+        if (err.message=="Cannot read properties of undefined (reading 'secure_url')"){
+            return res.status(400).json({ msg: "No Pictures Attached Which is required" })
+        }
         res.status(500).json({
             messagess: err.message,
           
